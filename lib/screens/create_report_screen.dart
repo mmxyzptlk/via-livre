@@ -715,6 +715,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                                 myLocationButtonEnabled: false,
                                 zoomControlsEnabled: false,
                                 mapToolbarEnabled: false,
+                                scrollGesturesEnabled: true,
                               ),
                             ),
                           ),
