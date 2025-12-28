@@ -674,7 +674,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                                         _currentPosition!.latitude,
                                         _currentPosition!.longitude,
                                       ),
-                                      zoom: 14.0,
+                                      zoom: 17.0,
                                     ),
                                     onMapCreated: (controller) {
                                       _mapController = controller;
