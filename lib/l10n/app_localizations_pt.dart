@@ -269,5 +269,10 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String locationDistanceWarning(String distance, int maxDistance) {
+    return 'A localização está a $distance km de distância. Por favor, selecione uma localização dentro de $maxDistance km.';
+  }
+
+  @override
   String get distance => 'Distância';
 }

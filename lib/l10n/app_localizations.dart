@@ -500,6 +500,12 @@ abstract class AppLocalizations {
   /// **'Selected location must be within {maxDistance} km of your current location'**
   String locationTooFar(int maxDistance);
 
+  /// Warning message showing distance and max allowed distance
+  ///
+  /// In en, this message translates to:
+  /// **'Location is {distance} km away. Please select a location within {maxDistance} km.'**
+  String locationDistanceWarning(String distance, int maxDistance);
+
   /// Distance label
   ///
   /// In en, this message translates to:

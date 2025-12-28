@@ -67,6 +67,7 @@
   "selectLocationOnMap": "Toque no mapa para selecionar a localização do relatório (máximo {maxDistance} km da sua localização atual)",
   "pleaseSelectLocation": "Por favor, toque no mapa para selecionar a localização do relatório",
   "locationTooFar": "A localização selecionada deve estar dentro de {maxDistance} km da sua localização atual",
+  "locationDistanceWarning": "A localização está a {distance} km de distância. Por favor, selecione uma localização dentro de {maxDistance} km.",
   "distance": "Distância"
 }
 

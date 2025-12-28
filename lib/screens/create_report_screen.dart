@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -37,6 +38,15 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
   void initState() {
     super.initState();
     _getCurrentLocation();
+  }
+
+  Future<void> _setMapStyle(GoogleMapController controller) async {
+    try {
+      final String style = await rootBundle.loadString('lib/config/map_style.json');
+      await controller.setMapStyle(style);
+    } catch (e) {
+      // Silently fail if style loading fails
+    }
   }
 
   Future<void> _getCurrentLocation() async {
@@ -86,7 +96,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
     }
   }
 
-  void _onMapTapped(LatLng location) {
+  void _updateSelectedLocation(LatLng location, {bool fetchName = true}) {
     if (_currentPosition == null) return;
 
     // Check distance
@@ -101,20 +111,36 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
     setState(() {
       _selectedLocation = location;
       _locationError = null;
-      _locationName = null;
+      if (fetchName) {
+        _locationName = null;
+      }
     });
 
-    // Move map to selected location
-    _mapController?.animateCamera(
-      CameraUpdate.newLatLngZoom(location, 15.0),
-    );
-
-    // Fetch location name
-    _fetchLocationName(LatLng(location.latitude, location.longitude));
+    // Fetch location name only when requested (not on every camera move)
+    if (fetchName) {
+      _fetchLocationName(LatLng(location.latitude, location.longitude));
+    }
 
     // Show alert if distance is too far
     if (distance > _maxDistanceKm) {
       _showDistanceAlert(distance);
+    }
+  }
+
+  void _onCameraIdle() async {
+    if (_mapController == null || _currentPosition == null) return;
+
+    try {
+      // Get the center of the visible region
+      final visibleRegion = await _mapController!.getVisibleRegion();
+      final center = LatLng(
+        (visibleRegion.northeast.latitude + visibleRegion.southwest.latitude) / 2,
+        (visibleRegion.northeast.longitude + visibleRegion.southwest.longitude) / 2,
+      );
+      
+      _updateSelectedLocation(center);
+    } catch (e) {
+      // Silently fail - location will update on next camera movement
     }
   }
 
@@ -144,7 +170,10 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Location is ${distance.toStringAsFixed(2)} km away. Please select a location within ${_maxDistanceKm.toInt()} km.',
+                    AppLocalizations.of(context)!.locationDistanceWarning(
+                      distance.toStringAsFixed(2),
+                      _maxDistanceKm.toInt(),
+                    ),
                     style: const TextStyle(
                       fontSize: 13,
                       color: Colors.white,
@@ -625,37 +654,6 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Instructions
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: theme.colorScheme.primary.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: theme.colorScheme.primary.withOpacity(0.3),
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.info_outline,
-                                  color: theme.colorScheme.primary,
-                                  size: 18,
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    l10n.selectLocationOnMap(_maxDistanceKm.toInt()),
-                                    style: theme.textTheme.bodySmall?.copyWith(
-                                      color: theme.colorScheme.primary,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 12),
                           // Map
                           Container(
                             height: 300,
@@ -668,54 +666,46 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
-                              child: GoogleMap(
-                                initialCameraPosition: CameraPosition(
-                                  target: _selectedLocation ?? LatLng(
-                                    _currentPosition!.latitude,
-                                    _currentPosition!.longitude,
-                                  ),
-                                  zoom: 14.0,
-                                ),
-                                onMapCreated: (controller) {
-                                  _mapController = controller;
-                                },
-                                onTap: (LatLng location) {
-                                  _onMapTapped(location);
-                                },
-                                markers: _selectedLocation != null
-                                    ? {
-                                        Marker(
-                                          markerId: const MarkerId('selected_location'),
-                                          position: _selectedLocation!,
-                                          draggable: true,
-                                          onDragEnd: (LatLng newPosition) {
-                                            _onMapTapped(newPosition);
-                                          },
-                                        ),
-                                        Marker(
-                                          markerId: const MarkerId('current_location'),
-                                          position: LatLng(
-                                            _currentPosition!.latitude,
-                                            _currentPosition!.longitude,
-                                          ),
-                                          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-                                        ),
+                              child: Stack(
+                                children: [
+                                  GoogleMap(
+                                    initialCameraPosition: CameraPosition(
+                                      target: _selectedLocation ?? LatLng(
+                                        _currentPosition!.latitude,
+                                        _currentPosition!.longitude,
+                                      ),
+                                      zoom: 14.0,
+                                    ),
+                                    onMapCreated: (controller) {
+                                      _mapController = controller;
+                                      _setMapStyle(controller);
+                                    },
+                                    onCameraIdle: _onCameraIdle,
+                                    onCameraMove: (CameraPosition position) {
+                                      // Update location in real-time as map moves (without fetching name)
+                                      if (_currentPosition != null) {
+                                        _updateSelectedLocation(position.target, fetchName: false);
                                       }
-                                    : {
-                                        Marker(
-                                          markerId: const MarkerId('current_location'),
-                                          position: LatLng(
-                                            _currentPosition!.latitude,
-                                            _currentPosition!.longitude,
+                                    },
+                                  ),
+                                  // Fixed center marker (ignores pointer events so map can be dragged)
+                                  IgnorePointer(
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.location_on,
+                                        color: Colors.red,
+                                        size: 48,
+                                        shadows: [
+                                          Shadow(
+                                            color: Colors.black.withOpacity(0.3),
+                                            blurRadius: 4,
+                                            offset: const Offset(0, 2),
                                           ),
-                                          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-                                        ),
-                                      },
-                                myLocationEnabled: false,
-                                myLocationButtonEnabled: false,
-                                zoomControlsEnabled: false,
-                                mapToolbarEnabled: false,
-                                scrollGesturesEnabled: true,
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -1096,7 +1086,10 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  'Location is ${distance.toStringAsFixed(2)} km away. Please select a location within ${_maxDistanceKm.toInt()} km.',
+                                  AppLocalizations.of(context)!.locationDistanceWarning(
+                                    distance.toStringAsFixed(2),
+                                    _maxDistanceKm.toInt(),
+                                  ),
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.orange.shade800,

@@ -308,6 +308,18 @@
       }
     }
   },
+  "locationDistanceWarning": "Location is {distance} km away. Please select a location within {maxDistance} km.",
+  "@locationDistanceWarning": {
+    "description": "Warning message showing distance and max allowed distance",
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "maxDistance": {
+        "type": "int"
+      }
+    }
+  },
   "distance": "Distance",
   "@distance": {
     "description": "Distance label"
