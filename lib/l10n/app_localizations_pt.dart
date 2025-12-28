@@ -54,7 +54,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get stillPresent => 'Ainda Presente';
 
   @override
-  String get noLongerPresent => 'Não Está Mais Presente';
+  String get noLongerPresent => 'Não Mais Presente';
 
   @override
   String get gettingLocation => 'Obtendo sua localização...';
