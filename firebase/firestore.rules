@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is authenticated (including anonymous)
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user owns a document
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Road Reports Collection
+    match /road_reports/{reportId} {
+      // Allow reads - both get and list queries
+      // For list queries, we can't validate individual documents, so allow the query
+      // Client-side filtering handles TTL and distance
+      allow read: if true;
+      
+      // Anyone can create reports (anonymous users allowed)
+      allow create: if isAuthenticated()
+                    && request.resource.data.keys().hasAll(['location', 'issue_type', 'created_at', 'expires_at', 'is_active', 'confirmations_count', 'dismissals_count'])
+                    && request.resource.data.issue_type is string
+                    && request.resource.data.issue_type in ['checkpoint', 'accident', 'construction', 'flood', 'tree_fallen', 'protest', 'other']
+                    && request.resource.data.is_active == true
+                    && request.resource.data.confirmations_count == 0
+                    && request.resource.data.dismissals_count == 0
+                    && request.resource.data.location.keys().hasAll(['lat', 'lng', 'geohash']);
+      
+      // Users can update their own reports, or anyone can update vote counts
+      allow update: if isAuthenticated() 
+                    && (isOwner(resource.data.created_by) 
+                        || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['confirmations_count', 'dismissals_count', 'is_active'])));
+      
+      // Users can delete their own reports
+      allow delete: if isAuthenticated() && isOwner(resource.data.created_by);
+    }
+    
+    // Report Votes Collection
+    match /report_votes/{voteId} {
+      // Anyone can read votes (including queries)
+      allow read: if true;
+      
+      // Anyone can create votes (anonymous users allowed)
+      allow create: if isAuthenticated()
+                    && request.resource.data.keys().hasAll(['report_id', 'vote_type', 'created_at'])
+                    && request.resource.data.vote_type in ['confirm', 'dismiss']
+                    && request.resource.data.report_id is string;
+      
+      // Users can update their own votes
+      allow update: if isAuthenticated() 
+                    && (resource.data.user_id == null || isOwner(resource.data.user_id));
+      
+      // Users can delete their own votes
+      allow delete: if isAuthenticated() 
+                    && (resource.data.user_id == null || isOwner(resource.data.user_id));
+    }
+  }
+}
+

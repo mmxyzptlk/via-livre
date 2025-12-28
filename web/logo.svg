@@ -1,0 +1,44 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="roadGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0175C2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#005A9E;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pinGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E63946;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#roadGradient)"/>
+  
+  <!-- Road/highway symbol -->
+  <g transform="translate(256, 256)">
+    <!-- Main road -->
+    <path d="M -120 -40 L 120 -40 L 120 40 L -120 40 Z" fill="#FFFFFF" opacity="0.9"/>
+    <!-- Road center line -->
+    <path d="M -100 0 L 100 0" stroke="#0175C2" stroke-width="4" stroke-dasharray="10,5"/>
+    <!-- Road markings -->
+    <circle cx="-80" cy="0" r="8" fill="#0175C2"/>
+    <circle cx="0" cy="0" r="8" fill="#0175C2"/>
+    <circle cx="80" cy="0" r="8" fill="#0175C2"/>
+  </g>
+  
+  <!-- Location pin with warning icon -->
+  <g transform="translate(256, 200)">
+    <!-- Pin shadow -->
+    <ellipse cx="0" cy="45" rx="25" ry="8" fill="#000000" opacity="0.2"/>
+    <!-- Pin body -->
+    <path d="M 0 -30 L -20 20 L 0 50 L 20 20 Z" fill="url(#pinGradient)"/>
+    <!-- Pin highlight -->
+    <ellipse cx="-5" cy="5" rx="8" ry="12" fill="#FFFFFF" opacity="0.3"/>
+    <!-- Warning exclamation mark -->
+    <path d="M 0 -15 L -3 -5 L 3 -5 Z" fill="#FFFFFF"/>
+    <rect x="-2" y="0" width="4" height="12" rx="2" fill="#FFFFFF"/>
+  </g>
+  
+  <!-- App name text (optional, can be removed for icon-only) -->
+  <text x="256" y="380" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#FFFFFF" text-anchor="middle" opacity="0.9">VL</text>
+</svg>
+

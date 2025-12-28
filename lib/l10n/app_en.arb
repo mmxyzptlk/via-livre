@@ -1,0 +1,316 @@
+{
+  "@@locale": "en",
+  "appName": "VIA LIVRE",
+  "@appName": {
+    "description": "Application name"
+  },
+  "mapScreen": "Map",
+  "@mapScreen": {
+    "description": "Map screen title"
+  },
+  "createReport": "Report Problem",
+  "@createReport": {
+    "description": "Create report button text"
+  },
+  "reportForm": "Report Road Issue",
+  "@reportForm": {
+    "description": "Report form screen title"
+  },
+  "issueType": "Issue Type",
+  "@issueType": {
+    "description": "Issue type label"
+  },
+  "description": "Description (Optional)",
+  "@description": {
+    "description": "Description field label"
+  },
+  "submit": "Submit",
+  "@submit": {
+    "description": "Submit button text"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "accident": "Accident",
+  "@accident": {
+    "description": "Accident issue type"
+  },
+  "construction": "Construction",
+  "@construction": {
+    "description": "Construction issue type"
+  },
+  "flood": "Flood",
+  "@flood": {
+    "description": "Flood issue type"
+  },
+  "treeFallen": "Fallen Tree",
+  "@treeFallen": {
+    "description": "Fallen tree issue type"
+  },
+  "protest": "Protest",
+  "@protest": {
+    "description": "Protest issue type"
+  },
+  "other": "Other",
+  "@other": {
+    "description": "Other issue type"
+  },
+  "stillPresent": "Still Present",
+  "@stillPresent": {
+    "description": "Confirm report still present button"
+  },
+  "noLongerPresent": "No Longer Present",
+  "@noLongerPresent": {
+    "description": "Dismiss report button"
+  },
+  "gettingLocation": "Getting your location...",
+  "@gettingLocation": {
+    "description": "Loading location message"
+  },
+  "locationError": "Failed to get location. Please enable location services.",
+  "@locationError": {
+    "description": "Location error message"
+  },
+  "reportCreated": "Report created successfully",
+  "@reportCreated": {
+    "description": "Success message after creating report"
+  },
+  "reportError": "Failed to create report. Please try again.",
+  "@reportError": {
+    "description": "Error message when report creation fails"
+  },
+  "loading": "Loading...",
+  "@loading": {
+    "description": "Loading indicator text"
+  },
+  "selectIssueType": "Please select an issue type",
+  "@selectIssueType": {
+    "description": "Validation error for issue type"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language setting label"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English language option"
+  },
+  "portuguese": "Portuguese",
+  "@portuguese": {
+    "description": "Portuguese language option"
+  },
+  "confirmations": "{count, plural, =0{No confirmations} =1{1 confirmation} other{{count} confirmations}}",
+  "@confirmations": {
+    "description": "Number of confirmations",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dismissals": "{count, plural, =0{No dismissals} =1{1 dismissal} other{{count} dismissals}}",
+  "@dismissals": {
+    "description": "Number of dismissals",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "location": "Location",
+  "@location": {
+    "description": "Location label"
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Retry button text"
+  },
+  "additionalDetailsOptional": "Additional details (optional)",
+  "@additionalDetailsOptional": {
+    "description": "Description field hint text"
+  },
+  "latitude": "Latitude",
+  "@latitude": {
+    "description": "Latitude label"
+  },
+  "longitude": "Longitude",
+  "@longitude": {
+    "description": "Longitude label"
+  },
+  "failedToLoadReports": "Failed to load reports",
+  "@failedToLoadReports": {
+    "description": "Error message when reports fail to load"
+  },
+  "failedToVote": "Failed to vote. Please try again.",
+  "@failedToVote": {
+    "description": "Error message when voting fails"
+  },
+  "error": "Error",
+  "@error": {
+    "description": "Generic error label"
+  },
+  "reportedAgo": "{time} ago",
+  "@reportedAgo": {
+    "description": "Time ago format for reports",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "justNow": "Just now",
+  "@justNow": {
+    "description": "Time indicator for very recent reports"
+  },
+  "minutes": "{count, plural, =1{1 minute} other{{count} minutes}}",
+  "@minutes": {
+    "description": "Minutes time unit",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hours": "{count, plural, =1{1 hour} other{{count} hours}}",
+  "@hours": {
+    "description": "Hours time unit",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "days": "{count, plural, =1{1 day} other{{count} days}}",
+  "@days": {
+    "description": "Days time unit",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "updateLocation": "Update Location",
+  "@updateLocation": {
+    "description": "Button text to update location"
+  },
+  "locationCaptured": "Location captured",
+  "@locationCaptured": {
+    "description": "Message when location is successfully captured"
+  },
+  "about": "About",
+  "@about": {
+    "description": "About screen title"
+  },
+  "appTagline": "Real-time road condition reports",
+  "@appTagline": {
+    "description": "App tagline or subtitle"
+  },
+  "aboutTitle": "About VIA LIVRE",
+  "@aboutTitle": {
+    "description": "About section title"
+  },
+  "aboutDescription": "VIA LIVRE is a community-driven platform that helps drivers stay informed about road conditions in real-time. Report and view road issues such as accidents, construction, floods, and more to help fellow drivers navigate safely.",
+  "@aboutDescription": {
+    "description": "About app description"
+  },
+  "howItWorksTitle": "How It Works",
+  "@howItWorksTitle": {
+    "description": "How it works section title"
+  },
+  "howItWorksDescription": "1. View real-time reports on the map\n2. Report road issues you encounter\n3. Confirm or dismiss reports to help keep information accurate",
+  "@howItWorksDescription": {
+    "description": "How the app works description"
+  },
+  "featuresTitle": "Features",
+  "@featuresTitle": {
+    "description": "Features section title"
+  },
+  "featureRealTimeMap": "Real-Time Map",
+  "@featureRealTimeMap": {
+    "description": "Real-time map feature title"
+  },
+  "featureRealTimeMapDesc": "See road reports updated in real-time on an interactive map",
+  "@featureRealTimeMapDesc": {
+    "description": "Real-time map feature description"
+  },
+  "featureReportIssues": "Report Issues",
+  "@featureReportIssues": {
+    "description": "Report issues feature title"
+  },
+  "featureReportIssuesDesc": "Quickly report accidents, construction, floods, and other road issues",
+  "@featureReportIssuesDesc": {
+    "description": "Report issues feature description"
+  },
+  "featureCommunityVerified": "Community Verified",
+  "@featureCommunityVerified": {
+    "description": "Community verified feature title"
+  },
+  "featureCommunityVerifiedDesc": "Reports are verified by the community through confirmations and dismissals",
+  "@featureCommunityVerifiedDesc": {
+    "description": "Community verified feature description"
+  },
+  "featureTimeLimited": "Time-Limited Reports",
+  "@featureTimeLimited": {
+    "description": "Time-limited feature title"
+  },
+  "featureTimeLimitedDesc": "All reports expire after 2 hours to ensure only current information is shown",
+  "@featureTimeLimitedDesc": {
+    "description": "Time-limited feature description"
+  },
+  "importantNotice": "Important Notice",
+  "@importantNotice": {
+    "description": "Important notice title"
+  },
+  "reportExpiryTitle": "Report Expiry",
+  "@reportExpiryTitle": {
+    "description": "Report expiry section title"
+  },
+  "reportExpiryDescription": "All reports automatically expire 2 hours after creation to ensure you only see current and relevant information.",
+  "@reportExpiryDescription": {
+    "description": "Report expiry description"
+  },
+  "appVersion": "Version 1.0.0",
+  "@appVersion": {
+    "description": "App version number"
+  },
+  "madeWithLove": "Made with ❤️ for safer roads",
+  "@madeWithLove": {
+    "description": "Footer message"
+  },
+  "filterReports": "Filter Reports",
+  "@filterReports": {
+    "description": "Filter reports label"
+  },
+  "noDetailsAvailable": "No additional details available for this report.",
+  "@noDetailsAvailable": {
+    "description": "Message shown when a report has no description"
+  },
+  "selectLocationOnMap": "Tap on the map to select the report location (max {maxDistance} km from your current location)",
+  "@selectLocationOnMap": {
+    "description": "Instruction to select location on map",
+    "placeholders": {
+      "maxDistance": {
+        "type": "int"
+      }
+    }
+  },
+  "pleaseSelectLocation": "Please tap on the map to select the report location",
+  "@pleaseSelectLocation": {
+    "description": "Prompt to select location"
+  },
+  "locationTooFar": "Selected location must be within {maxDistance} km of your current location",
+  "@locationTooFar": {
+    "description": "Error when location is too far",
+    "placeholders": {
+      "maxDistance": {
+        "type": "int"
+      }
+    }
+  },
+  "distance": "Distance",
+  "@distance": {
+    "description": "Distance label"
+  }
+}
+

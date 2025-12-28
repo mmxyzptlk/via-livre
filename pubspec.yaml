@@ -1,0 +1,56 @@
+name: via_livre
+description: "VIA LIVRE - Community road awareness application"
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  
+  # Firebase
+  firebase_core: ^3.6.0
+  cloud_firestore: ^5.4.4
+  firebase_auth: ^5.3.1
+  
+  # Maps
+  google_maps_flutter: ^2.5.0
+  
+  # Location
+  geolocator: ^12.0.0
+  permission_handler: ^11.3.0
+  
+  # HTTP
+  http: ^1.2.0
+  
+  
+  # State Management
+  provider: ^6.1.1
+  
+  # Internationalization
+  intl: ^0.20.2
+  
+  # Utilities
+  uuid: ^4.3.3
+  
+  # Fonts
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  
+  # Assets
+  # assets:
+  #   - assets/
+  
+  # Generate localization files
+  generate: true
